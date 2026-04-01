@@ -13,9 +13,9 @@ if "logged_in" not in st.session_state:
 # ---------------- LOAD DATA ---------------- #
 @st.cache_data
 def load_data():
-   data = pd.read_csv("traffic.csv")
+    data = pd.read_csv("traffic.csv")
 
-    # ✅ FIX: handle mixed date formats
+    # Fix date format
     data['Date'] = pd.to_datetime(data['Date'], format='mixed', errors='coerce')
     data = data.dropna(subset=['Date'])
 
@@ -79,9 +79,7 @@ def dashboard():
     fig2 = px.bar(filtered_data, x='Date', y='PageViews', title="Page Views")
     st.plotly_chart(fig2, use_container_width=True)
 
-    # =========================================================
-    # 🔥 TODAY vs YESTERDAY STATUS
-    # =========================================================
+    # ---------------- TODAY VS YESTERDAY ---------------- #
     st.subheader("📊 Today vs Yesterday Status")
 
     data = data.sort_values("Date")
