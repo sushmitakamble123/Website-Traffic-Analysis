@@ -13,7 +13,7 @@ if "logged_in" not in st.session_state:
 # ---------------- LOAD DATA ---------------- #
 @st.cache_data
 def load_data():
-    data = pd.read_csv("data/traffic.csv")
+   data = pd.read_csv("traffic.csv")
 
     # ✅ FIX: handle mixed date formats
     data['Date'] = pd.to_datetime(data['Date'], format='mixed', errors='coerce')
