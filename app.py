@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 from sklearn.ensemble import RandomForestRegressor
 from database import add_user, login_user
+import os
 
 st.set_page_config(page_title="Traffic Dashboard", layout="wide")
 
@@ -13,7 +14,13 @@ if "logged_in" not in st.session_state:
 # ---------------- LOAD DATA ---------------- #
 @st.cache_data
 def load_data():
-    data = pd.read_csv("traffic.csv")
+    file_path = "data/traffic.csv"   # ✅ correct path
+
+    if not os.path.exists(file_path):
+        st.error("❌ traffic.csv file not found in data folder!")
+        st.stop()
+
+    data = pd.read_csv(file_path)
 
     # Fix date format
     data['Date'] = pd.to_datetime(data['Date'], format='mixed', errors='coerce')
